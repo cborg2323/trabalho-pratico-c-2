@@ -1,0 +1,44 @@
+# Compilação e binários
+*.o
+*.out
+*.a
+*.so
+*.exe
+*.dll
+
+# Diretórios de build
+/build/
+/bin/
+/obj/
+
+# Arquivos de depuração
+*.dSYM/
+*.gcda
+*.gcno
+*.gcov
+
+# Arquivos de log e temporários
+*.log
+*.swp
+*.swo
+*.bak
+
+# Arquivos gerados pelo IDE
+*.vscode/
+*.idea/
+*.cproject
+*.project
+*.settings/
+
+# Makefile intermediários
+Makefile.in
+Makefile.dep
+
+# Arquivos do CMake
+CMakeCache.txt
+CMakeFiles/
+
+# Outros arquivos desnecessários
+*.tar.gz
+*.zip
+*.rar
