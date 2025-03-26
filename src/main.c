@@ -30,29 +30,38 @@ int main()
     if (arquivoLivrosVazio())
     {
         // cadastro livros
-        
+
         inicializaEstruturaLivros(&lv);
         cadastroLivro(&lv, &n_livro);
         printf("Número de livros: %d\n", n_livro);
     }
+    else
+    {
+        carregarLivros(&lv, &n_livro);
+    }
 
     if (arquivoUsuariosVazio())
     {
-        // cadastro usuarios
-        printf("Cadastrar usuarios;");
+        inicializaEstruturaUsuarios(&us);
+        cadastroUsuario(&us, &n_usuario);
+    }
+    else
+    {
+        carregarUsuarios(&us, &n_usuario);
     }
 
     if (arquivoEmprestimosVazio())
     {
-        // cadastro emprestimos
-        printf("Cadastrar emprestimos;");
+        printf("Cadastrar emprestimos.");
     }
     else
     {
-        carregarLivros(&lv, &n_livro);
-        carregarUsuarios(&us, &n_usuario);
         carregarEmprestimos(&emp, &n_emprestimo);
     }
+
+    salvarLivros(&lv, n_livro);
+    salvarUsuarios(&us, n_usuario);
+    salvarEmprestimos(&emp, n_emprestimo);
 
     return 0;
 }

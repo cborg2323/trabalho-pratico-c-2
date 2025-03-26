@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../include/funcoes-salva-carrega-arq.h"
 
@@ -13,8 +13,12 @@ int salvarLivros(Livro *lv, int n)
         return 1;
     }
 
+    int escritos = 0;
     fwrite(&n, sizeof(int), 1, fp);
-    int escritos = fwrite(lv, sizeof(Livro), n, fp);
+    if (n > 0)
+    {
+        int escritos = fwrite(lv, sizeof(Livro), n, fp);
+    }
 
     fclose(fp);
 
@@ -72,8 +76,12 @@ int salvarUsuarios(Usuario *us, int n)
         return 1;
     }
 
+    int escritos = 0;
     fwrite(&n, sizeof(int), 1, fp);
-    int escritos = fwrite(us, sizeof(Usuario), n, fp);
+    if (n > 0)
+    {
+        escritos = fwrite(us, sizeof(Usuario), n, fp);
+    }
 
     fclose(fp);
 
@@ -131,8 +139,12 @@ int salvarEmprestimos(Emprestimo *emp, int n)
         return 1;
     }
 
+    int escritos = 0;
     fwrite(&n, sizeof(int), 1, fp);
-    int escritos = fwrite(emp, sizeof(Emprestimo), n, fp);
+    if (n > 0)
+    {
+        int escritos = fwrite(emp, sizeof(Emprestimo), n, fp);
+    }
 
     fclose(fp);
 

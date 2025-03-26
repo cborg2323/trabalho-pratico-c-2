@@ -28,7 +28,8 @@ int arquivosInicializados()
         fclose(fpEmprestimo);
     }
 
-    if(flag_nao_inicializados) {
+    if (flag_nao_inicializados)
+    {
         return 0;
     }
 
@@ -114,6 +115,10 @@ int inicializaArquivos()
     fwrite(&numeroRegistros, sizeof(int), 1, fpLivro);
     fwrite(&numeroRegistros, sizeof(int), 1, fpUsuario);
     fwrite(&numeroRegistros, sizeof(int), 1, fpEmprestimo);
+
+    fclose(fpLivro);
+    fclose(fpUsuario);
+    fclose(fpEmprestimo);
 
     return 0;
 }

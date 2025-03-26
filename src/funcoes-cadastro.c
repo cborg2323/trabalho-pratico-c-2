@@ -18,3 +18,46 @@ int cadastroLivro(Livro **lv, int *n)
 
     return 0;
 }
+
+int buscaLivro(Livro *lv, int n, int codigoLivroBuscado)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (lv[i].codigo == codigoLivroBuscado)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int cadastroUsuario(Usuario **us, int *n)
+{
+    printf("Digite o ID do usuário: ");
+    scanf("%d", &(*us)[*n].id);
+    printf("Digite o nome do usuário: ");
+    getchar();
+    fgets((*us)[*n].nome, 100, stdin);
+    printf("Digite o email do usuário: ");
+    fgets((*us)[*n].email, 100, stdin);
+    printf("Digite a idade do usuário: ");
+    scanf("%d", &(*us)[*n].idade);
+
+    (*n)++;
+
+    return 0;
+}
+
+int buscaUsuario(Usuario *us, int n, int idUsuarioBuscado)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (us[i].id == idUsuarioBuscado)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
