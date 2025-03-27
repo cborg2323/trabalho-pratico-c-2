@@ -23,3 +23,20 @@ void listarUsuarios(Usuario *us, int n)
         printf("Idade do usuário: %d\n\n", us[i].idade);
     }
 }
+
+void listarEmprestimos(Emprestimo *emp, int n, Livro *lv, int n_livro, Usuario *us, int n_usuario)
+{
+    int indiceUsuario, indiceLivro;
+
+    for (int i = 0; i < n; i++)
+    {
+        indiceUsuario = buscaUsuario(us, n_usuario, emp[i].idUsuario);
+        indiceLivro = buscaLivro(lv, n_livro, emp[i].codigoLivro);
+
+        printf("\nData do empréstimo: %d/%d/%d\n", emp[i].dataEmprestimo.dia, emp[i].dataEmprestimo.mes, emp[i].dataEmprestimo.ano);
+        printf("Usuário: %s", us[indiceUsuario].nome);
+        printf("Email: %s", us[indiceUsuario].email);
+        printf("Livro: %s", lv[indiceLivro].titulo);
+        printf("Autor: %s", lv[indiceLivro].autor);
+    }
+}

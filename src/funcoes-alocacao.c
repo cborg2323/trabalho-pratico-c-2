@@ -20,6 +20,40 @@ int verificaAlocacaoLivros(Livro **lv, int n, int *n_aloc)
     return 0;
 }
 
+int verificaAlocacaoUsuarios(Usuario **us, int n, int *n_aloc)
+{
+    if (n == *n_aloc)
+    {
+        (*n_aloc) *= 2;
+        realloc(*us, (*n_aloc) * sizeof(Usuario));
+    }
+
+    if (*us == NULL)
+    {
+        printf("Erro ao realocar memória para usuários.");
+        return (1);
+    }
+
+    return 0;
+}
+
+int verificaAlocacaoEmprestimos(Emprestimo **emp, int n, int *n_aloc)
+{
+    if (n == *n_aloc)
+    {
+        (*n_aloc) *= 2;
+        realloc(*emp, (*n_aloc) * sizeof(Emprestimo));
+    }
+
+    if (*emp == NULL)
+    {
+        printf("Erro ao realocar memória para empréstimos.\n");
+        return (1);
+    }
+
+    return 0;
+}
+
 int inicializaEstruturaLivros(Livro **lv)
 {
     *lv = malloc(ALOC_INICIAL * sizeof(Livro));

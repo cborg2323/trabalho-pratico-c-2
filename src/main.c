@@ -32,31 +32,31 @@ int main()
     if (arquivoLivrosVazio())
     {
         inicializaEstruturaLivros(&lv);
-        cadastroLivro(&lv, &n_livro);
+        cadastroLivro(&lv, &n_livro, &n_aloc_livro);
         printf("Número de livros: %d\n", n_livro);
     }
     else
     {
-        carregarLivros(&lv, &n_livro);
+        carregarLivros(&lv, &n_livro, &n_aloc_livro);
     }
 
     if (arquivoUsuariosVazio())
     {
         inicializaEstruturaUsuarios(&us);
-        cadastroUsuario(&us, &n_usuario);
+        cadastroUsuario(&us, &n_usuario, &n_aloc_usuario);
     }
     else
     {
-        carregarUsuarios(&us, &n_usuario);
+        carregarUsuarios(&us, &n_usuario, &n_aloc_usuario);
     }
 
     if (arquivoEmprestimosVazio())
     {
-        printf("Cadastrar emprestimos.");
+        inicializaEstruturaEmprestioms(&emp);
     }
     else
     {
-        carregarEmprestimos(&emp, &n_emprestimo);
+        carregarEmprestimos(&emp, &n_emprestimo, &n_aloc_emprestimo);
     }
 
     do
@@ -68,6 +68,9 @@ int main()
         printf("4. Listar Livros\n");
         printf("5. Listar Usuários\n");
         printf("6. Listar Empréstimos\n");
+        printf("7. Alterar Livro\n");
+        printf("8. Alterar Usuário\n");
+        printf("8. Alterar Empréstimo\n");
         printf("0. Salvar e Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
@@ -75,13 +78,13 @@ int main()
         switch (opcao)
         {
         case 1:
-            cadastroLivro(&lv, &n_livro);
+            cadastroLivro(&lv, &n_livro, &n_aloc_livro);
             break;
         case 2:
-            cadastroUsuario(&us, &n_usuario);
+            cadastroUsuario(&us, &n_usuario, &n_aloc_usuario);
             break;
         case 3:
-            cadastroEmprestimo(&emp, &n_emprestimo, lv, n_livro, us, n_usuario);
+            cadastroEmprestimo(&emp, &n_emprestimo, &n_aloc_emprestimo, lv, n_livro, us, n_usuario);
             break;
         case 4:
             listarLivros(lv, n_livro);
@@ -90,7 +93,7 @@ int main()
             listarUsuarios(us, n_usuario);
             break;
         case 6:
-            // listarEmprestimos();
+            listarEmprestimos(emp, n_emprestimo, lv, n_livro, us, n_usuario);
             break;
         case 0:
             salvarLivros(lv, n_livro);

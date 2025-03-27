@@ -3,8 +3,10 @@
 
 #include "../include/funcoes-cadastro.h"
 
-int cadastroLivro(Livro **lv, int *n)
+int cadastroLivro(Livro **lv, int *n, int *n_aloc)
 {
+    verificaAlocacaoLivros(lv, *n, n_aloc);
+
     printf("\n\nDigite o código do livro: ");
     scanf("%d", &(*lv)[*n].codigo);
     printf("Digite o título do livro: ");
@@ -33,8 +35,10 @@ int buscaLivro(Livro *lv, int n, int codigoLivroBuscado)
     return -1;
 }
 
-int cadastroUsuario(Usuario **us, int *n)
+int cadastroUsuario(Usuario **us, int *n, int *n_aloc)
 {
+    verificaAlocacaoUsuarios(us, *n, n_aloc);
+
     printf("\n\nDigite o ID do usuário: ");
     scanf("%d", &(*us)[*n].id);
     printf("Digite o nome do usuário: ");
@@ -63,25 +67,36 @@ int buscaUsuario(Usuario *us, int n, int idUsuarioBuscado)
     return -1;
 }
 
-int cadastroEmprestimo(Emprestimo **emp, int *n, Livro *lv, int n_livro, Usuario *us, int n_usuario)
+int cadastroEmprestimo(Emprestimo **emp, int *n, int *n_aloc, Livro *lv, int n_livro, Usuario *us, int n_usuario)
 {
+    verificaAlocacaoEmprestimos(emp, *n, n_aloc);
+
     time_t t = time(NULL);
     int codigoLivro, idUsuario;
-    printf("Digite o código do livro: ");
+    printf("\nDigite o código do livro: ");
     scanf("%d", &codigoLivro);
     printf("Digite o ID do usuário: ");
-    scanf("%d", idUsuario);
+    scanf("%d", &idUsuario);
 
-    if (buscaLivro(lv, n_livro, codigoLivro) != -1 && buscaUsuario(us, n_usuario, idUsuario))
+    int indiceLivro = buscaLivro(lv, n_livro, codigoLivro);
+    int indiceUsuario =  buscaUsuario(us, n_usuario, idUsuario);
+
+    if (indiceLivro != -1 && indiceUsuario != -1)
     {
-        emp[*n]->codigoLivro = codigoLivro;
-        emp[*n]->idUsuario = idUsuario;
+        (*emp)[*n].codigoLivro = codigoLivro;
+        (*emp)[*n].idUsuario = idUsuario;
 
         struct tm tm = *localtime(&t);
-        emp[*n]->dataEmprestimo.dia = tm.tm_mday;
-        emp[*n]->dataEmprestimo.mes = tm.tm_mon + 1;
-        emp[*n]->dataEmprestimo.dia = tm.tm_year + 1900;
+        (*emp)[*n].dataEmprestimo.dia = tm.tm_mday;
+        (*emp)[*n].dataEmprestimo.mes = tm.tm_mon + 1;
+        (*emp)[*n].dataEmprestimo.ano = tm.tm_year + 1900;
+
+        (*n)++;
+
+        return 0;
     }
+
+    return 1;
 }
 
 int alterarLivro(Livro **lv, int n, int codigoLivro)
