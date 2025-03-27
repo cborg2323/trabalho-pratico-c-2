@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <time.h>
 
 #include "../include/funcoes-cadastro.h"
 
 int cadastroLivro(Livro **lv, int *n)
 {
-    printf("Digite o código do livro: ");
+    printf("\n\nDigite o código do livro: ");
     scanf("%d", &(*lv)[*n].codigo);
     printf("Digite o título do livro: ");
     getchar();
@@ -34,7 +35,7 @@ int buscaLivro(Livro *lv, int n, int codigoLivroBuscado)
 
 int cadastroUsuario(Usuario **us, int *n)
 {
-    printf("Digite o ID do usuário: ");
+    printf("\n\nDigite o ID do usuário: ");
     scanf("%d", &(*us)[*n].id);
     printf("Digite o nome do usuário: ");
     getchar();
@@ -60,4 +61,45 @@ int buscaUsuario(Usuario *us, int n, int idUsuarioBuscado)
     }
 
     return -1;
+}
+
+int cadastroEmprestimo(Emprestimo **emp, int *n, Livro *lv, int n_livro, Usuario *us, int n_usuario)
+{
+    time_t t = time(NULL);
+    int codigoLivro, idUsuario;
+    printf("Digite o código do livro: ");
+    scanf("%d", &codigoLivro);
+    printf("Digite o ID do usuário: ");
+    scanf("%d", idUsuario);
+
+    if (buscaLivro(lv, n_livro, codigoLivro) != -1 && buscaUsuario(us, n_usuario, idUsuario))
+    {
+        emp[*n]->codigoLivro = codigoLivro;
+        emp[*n]->idUsuario = idUsuario;
+
+        struct tm tm = *localtime(&t);
+        emp[*n]->dataEmprestimo.dia = tm.tm_mday;
+        emp[*n]->dataEmprestimo.mes = tm.tm_mon + 1;
+        emp[*n]->dataEmprestimo.dia = tm.tm_year + 1900;
+    }
+}
+
+int alterarLivro(Livro **lv, int n, int codigoLivro)
+{
+    int indiceLivroBuscado = buscaLivro(&lv, n, codigoLivro);
+
+    if (indiceLivroBuscado != -1)
+    {
+        printf("Digite o novo título do livro: ");
+        getchar();
+        fgets((*lv)[indiceLivroBuscado].titulo, 100, stdin);
+        printf("Digite o novo autor do livro: ");
+        fgets((*lv)[indiceLivroBuscado].autor, 100, stdin);
+        printf("Digite o novo ano de publicação do livro: ");
+        scanf("%d", &(*lv)[indiceLivroBuscado].anoPublicacao);
+
+        return 0;
+    }
+
+    return 1;
 }

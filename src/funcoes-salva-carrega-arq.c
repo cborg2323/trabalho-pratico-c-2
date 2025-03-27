@@ -13,16 +13,25 @@ int salvarLivros(Livro *lv, int n)
         return 1;
     }
 
-    int escritos = 0;
-    fwrite(&n, sizeof(int), 1, fp);
+    if(fwrite(&n, sizeof(int), 1, fp) != 1) {
+        printf("Erro ao salvar o número de livros.\n");
+        
+        fclose(fp);
+        return 1;
+    }
+
     if (n > 0)
     {
-        int escritos = fwrite(lv, sizeof(Livro), n, fp);
+        if (fwrite(lv, sizeof(Livro), n, fp) != n) {
+            printf("Erro ao salvar os dados dos livros.\n");
+            
+            fclose(fp);
+            return 1;
+        }
     }
 
     fclose(fp);
-
-    return (escritos == n) ? 0 : 1;
+    return 0;
 }
 
 int carregarLivros(Livro **lv, int *n)
@@ -41,6 +50,13 @@ int carregarLivros(Livro **lv, int *n)
         fclose(fp);
 
         return 1;
+    }
+
+    if(*n == 0) {
+        *lv == NULL;
+        fclose(fp);
+
+        return 0;
     }
 
     *lv = malloc((*n) * sizeof(Livro));
@@ -62,7 +78,6 @@ int carregarLivros(Livro **lv, int *n)
     }
 
     fclose(fp);
-
     return 0;
 }
 
