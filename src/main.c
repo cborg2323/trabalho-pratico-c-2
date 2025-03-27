@@ -95,6 +95,9 @@ int main()
         case 6:
             listarEmprestimos(emp, n_emprestimo, lv, n_livro, us, n_usuario);
             break;
+        case 7:
+            alterarLivro(&lv, n_livro);
+            break;
         case 0:
             salvarLivros(lv, n_livro);
             salvarUsuarios(us, n_usuario);

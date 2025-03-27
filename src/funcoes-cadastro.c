@@ -99,9 +99,13 @@ int cadastroEmprestimo(Emprestimo **emp, int *n, int *n_aloc, Livro *lv, int n_l
     return 1;
 }
 
-int alterarLivro(Livro **lv, int n, int codigoLivro)
+int alterarLivro(Livro **lv, int n)
 {
-    int indiceLivroBuscado = buscaLivro(&lv, n, codigoLivro);
+    int codigoLivro;
+    printf("\nDigite o código do livro a ser alterado: ");
+    scanf("%d",&codigoLivro);
+
+    int indiceLivroBuscado = buscaLivro(*lv, n, codigoLivro);
 
     if (indiceLivroBuscado != -1)
     {

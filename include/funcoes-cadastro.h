@@ -14,6 +14,6 @@ int buscaUsuario(Usuario *us, int n, int idUsuarioBuscado);
 
 int cadastroEmprestimo(Emprestimo **emp, int *n, int *n_aloc, Livro *lv, int n_livro, Usuario *us, int n_usuario);
 
-int alterarLivro(Livro **lv, int n, int codigoLivro);
+int alterarLivro(Livro **lv, int n);
 
 #endif
