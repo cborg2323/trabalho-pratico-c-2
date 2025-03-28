@@ -40,3 +40,45 @@ void listarEmprestimos(Emprestimo *emp, int n, Livro *lv, int n_livro, Usuario *
         printf("Autor: %s", lv[indiceLivro].autor);
     }
 }
+
+void consultarLivro(Livro *lv, int n)
+{
+    int codLivroBuscado, indiceLivroBuscado;
+    printf("\nDigite o código do livro: ");
+    scanf("%d", &codLivroBuscado);
+
+    indiceLivroBuscado = buscaLivro(lv, n, codLivroBuscado);
+
+    if (indiceLivroBuscado != -1)
+    {
+        printf("Título: %s", lv[indiceLivroBuscado].titulo);
+        printf("Autor: %s", lv[indiceLivroBuscado].autor);
+        printf("Ano de publicação: %d\n", lv[indiceLivroBuscado].anoPublicacao);
+
+        return 0;
+    }
+
+    printf("Livro não encontrado.\n");
+    return 1;
+}
+
+void consultarUsuario(Usuario *us, int n)
+{
+    int idUsuarioBuscado, indiceUsuarioBuscado;
+    printf("\nDigite o ID do usuário: ");
+    scanf("%d", &idUsuarioBuscado);
+
+    indiceUsuarioBuscado = buscaUsuario(us, n, idUsuarioBuscado);
+
+    if (idUsuarioBuscado != -1)
+    {
+        printf("Nome: %s", us[indiceUsuarioBuscado].nome);
+        printf("Email: %s", us[indiceUsuarioBuscado].email);
+        printf("Idade: %d\n", us[indiceUsuarioBuscado].idade);
+
+        return 0;
+    }
+
+    printf("Usuário não encontrado.\n");
+    return 1;
+}

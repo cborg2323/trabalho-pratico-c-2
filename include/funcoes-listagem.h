@@ -10,4 +10,8 @@ void listarUsuarios(Usuario *us, int n);
 
 void listarEmprestimos(Emprestimo *emp, int n, Livro *lv, int n_livro, Usuario *us, int n_usuario);
 
+void consultarLivro(Livro *lv, int n);
+
+void consultarUsuario(Usuario *us, int n);
+
 #endif
