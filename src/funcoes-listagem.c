@@ -82,3 +82,31 @@ void consultarUsuario(Usuario *us, int n)
     printf("Usuário não encontrado.\n");
     return 1;
 }
+
+void gerarRelatorioEmprestimos(Emprestimo *emp, int n, Livro *lv, int n_livro, Usuario *us, int n_usuario)
+{
+    FILE *arquivo = fopen("relatorio_emprestimos.txt", "w");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao criar o arquivo de relatório.\n");
+        return;
+    }
+
+    int indiceUsuario, indiceLivro;
+
+    for (int i = 0; i < n; i++)
+    {
+        indiceUsuario = buscaUsuario(us, n_usuario, emp[i].idUsuario);
+        indiceLivro = buscaLivro(lv, n_livro, emp[i].codigoLivro);
+
+        fprintf(arquivo, "\nData do empréstimo: %d/%d/%d\n", emp[i].dataEmprestimo.dia, emp[i].dataEmprestimo.mes, emp[i].dataEmprestimo.ano);
+        fprintf(arquivo, "Usuário: %s\n", us[indiceUsuario].nome);
+        fprintf(arquivo, "Email: %s\n", us[indiceUsuario].email);
+        fprintf(arquivo, "Livro: %s\n", lv[indiceLivro].titulo);
+        fprintf(arquivo, "Autor: %s\n", lv[indiceLivro].autor);
+        fprintf(arquivo, "--------------------------------------\n");
+    }
+
+    fclose(arquivo);
+    printf("Relatório de empréstimos gerado com sucesso!\n");
+}
