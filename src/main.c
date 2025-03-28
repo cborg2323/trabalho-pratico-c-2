@@ -73,6 +73,9 @@ int main()
         printf("9. Alterar Empréstimo\n");
         printf("10. Consultar Livro\n");
         printf("11. Consultar Usuário\n");
+        printf("12. Excluir Livro\n");
+        printf("13. Excluir Usuário\n");
+        printf("14. Excluir Empréstimo\n");
         printf("0. Salvar e Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
@@ -111,6 +114,15 @@ int main()
             break;
         case 11:
             consultarUsuario(us, n_usuario);
+            break;
+        case 12:
+            removerLivro(&lv, &n_livro, emp, n_emprestimo);
+            break;
+        case 13:
+            removerUsuario(&us, &n_usuario, emp, n_emprestimo);
+            break;
+        case 14:
+            removerEmprestimo(&emp, &n_emprestimo);
             break;
         case 0:
             salvarLivros(lv, n_livro);

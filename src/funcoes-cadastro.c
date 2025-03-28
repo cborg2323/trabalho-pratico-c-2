@@ -112,6 +112,30 @@ int buscaEmprestimo(Emprestimo *emp, int n, int codLivroBuscado, int idUsuarioBu
     return -1;
 }
 
+int buscaLivroEmprestimo(Emprestimo *emp, int n, int codLivroBuscado)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (emp[i].codigoLivro == codLivroBuscado)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int buscaUsuarioEmprestimo(Emprestimo *emp, int n, int idUsuarioBuscado)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (emp[i].idUsuario == idUsuarioBuscado)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int alterarLivro(Livro **lv, int n)
 {
     int codigoLivro;
@@ -192,11 +216,80 @@ int alterarEmprestimo(Emprestimo **emp, int n, Livro *lv, int n_livro, Usuario *
         }
 
         printf("Código do livro e/ou ID do usuário não encontrado.\n");
-        
+
         return 1;
     }
 
     printf("Dados do emprestimo não encontrados.\n");
 
+    return 1;
+}
+
+int removerLivro(Livro **lv, int *n, Emprestimo *emp, int n_emprestimos)
+{
+    int codigoLivroRemover, indiceLivroRemover, indiceLivroEmprestimos;
+
+    printf("\nDigite o código do livro a ser removido: ");
+    scanf("%d", &codigoLivroRemover);
+    indiceLivroRemover = buscaLivro(*lv, *n, codigoLivroRemover);
+    indiceLivroEmprestimos = buscaLivroEmprestimo(emp, n_emprestimos, codigoLivroRemover);
+
+    if (indiceLivroRemover != -1 && indiceLivroEmprestimos == -1)
+    {
+        printf("Livro a ser removido: %s", (*lv)[indiceLivroRemover].titulo);
+        (*lv)[indiceLivroRemover] = (*lv)[(*n) - 1];
+        (*n)--;
+        printf("Livro removido.\n");
+
+        return 0;
+    }
+    printf("Livro não encontrado ou presente na lista de empréstimos.\n");
+    return 1;
+}
+
+int removerUsuario(Usuario **us, int *n, Emprestimo *emp, int n_emprestimos)
+{
+    int idUsuarioRemover, indiceUsuarioRemover, indiceUsuarioEmprestimos;
+
+    printf("\nDigite o ID do usuário a ser removido: ");
+    scanf("%d", &idUsuarioRemover);
+    indiceUsuarioRemover = buscaUsuario(*us, *n, idUsuarioRemover);
+    indiceUsuarioEmprestimos = buscaUsuarioEmprestimo(emp, n_emprestimos, idUsuarioRemover);
+
+    if (indiceUsuarioRemover != -1 && indiceUsuarioEmprestimos == -1)
+    {
+        printf("Usuario a ser removido: %s", (*us)[indiceUsuarioRemover].nome);
+        (*us)[indiceUsuarioRemover] = (*us)[(*n) - 1];
+        (*n)--;
+        printf("Usuário removido.\n");
+
+        return 0;
+    }
+    printf("Usuário não encontrado ou presente na lista de empréstimos.\n");
+    return 1;
+}
+
+int removerEmprestimo(Emprestimo **emp, int *n)
+{
+    int codigoLivroEmprestimo, idUsuarioEmprestimo, indiceEmprestimoRemover;
+
+    printf("\nDigite os dados do empréstimo a ser removido\n");
+    printf("Código do livro: ");
+    scanf("%d", &codigoLivroEmprestimo);
+    printf("ID do usuário: ");
+    scanf("%d", &idUsuarioEmprestimo);
+
+    indiceEmprestimoRemover = buscaEmprestimo(*emp, *n, codigoLivroEmprestimo, idUsuarioEmprestimo);
+
+    if (indiceEmprestimoRemover != -1)
+    {
+        printf("Emprestimo a ser removido: Cod. do Livro: %d, ID do Usuário: %d, Data: %d/%d/%d\n", (*emp)[indiceEmprestimoRemover].codigoLivro, (*emp)[indiceEmprestimoRemover].idUsuario, (*emp)[indiceEmprestimoRemover].dataEmprestimo.dia, (*emp)[indiceEmprestimoRemover].dataEmprestimo.mes, (*emp)[indiceEmprestimoRemover].dataEmprestimo.ano);
+        (*emp)[indiceEmprestimoRemover] = (*emp)[(*n) - 1];
+        (*n)--;
+        printf("Empréstimo removido.\n");
+
+        return 0;
+    }
+    printf("Empréstimo não encontrado.\n");
     return 1;
 }
