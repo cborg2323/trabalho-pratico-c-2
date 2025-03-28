@@ -5,21 +5,32 @@
 
 int cadastroLivro(Livro **lv, int *n, int *n_aloc)
 {
+    int codLivro, indiceLivro;
     verificaAlocacaoLivros(lv, *n, n_aloc);
 
     printf("\n\nDigite o código do livro: ");
-    scanf("%d", &(*lv)[*n].codigo);
-    printf("Digite o título do livro: ");
-    getchar();
-    fgets((*lv)[*n].titulo, 100, stdin);
-    printf("Digite o autor do livro: ");
-    fgets((*lv)[*n].autor, 100, stdin);
-    printf("Digite o ano de publicação do livro: ");
-    scanf("%d", &(*lv)[*n].anoPublicacao);
+    scanf("%d", codLivro);
+    indiceLivro = buscaLivro(*lv, *n, codLivro);
 
-    (*n)++;
+    if (indiceLivro == -1)
+    {
+        (*lv)[*n].codigo = codLivro;
+        printf("Digite o título do livro: ");
+        getchar();
+        fgets((*lv)[*n].titulo, 100, stdin);
+        printf("Digite o autor do livro: ");
+        fgets((*lv)[*n].autor, 100, stdin);
+        printf("Digite o ano de publicação do livro: ");
+        scanf("%d", &(*lv)[*n].anoPublicacao);
 
-    return 0;
+        (*n)++;
+        printf("Livro cadastrado.\n");
+
+        return 0;
+    }
+
+    printf("Código de livro já existe.\n");
+    return 1;
 }
 
 int buscaLivro(Livro *lv, int n, int codigoLivroBuscado)
@@ -37,21 +48,32 @@ int buscaLivro(Livro *lv, int n, int codigoLivroBuscado)
 
 int cadastroUsuario(Usuario **us, int *n, int *n_aloc)
 {
+    int idUsuario, indiceUsuario;
     verificaAlocacaoUsuarios(us, *n, n_aloc);
 
     printf("\n\nDigite o ID do usuário: ");
-    scanf("%d", &(*us)[*n].id);
-    printf("Digite o nome do usuário: ");
-    getchar();
-    fgets((*us)[*n].nome, 100, stdin);
-    printf("Digite o email do usuário: ");
-    fgets((*us)[*n].email, 100, stdin);
-    printf("Digite a idade do usuário: ");
-    scanf("%d", &(*us)[*n].idade);
+    scanf("%d", &idUsuario);
+    indiceUsuario = buscaUsuario(*us, *n, idUsuario);
 
-    (*n)++;
+    if (indiceUsuario == -1)
+    {
+        (*us)[*n].id = idUsuario;
+        printf("Digite o nome do usuário: ");
+        getchar();
+        fgets((*us)[*n].nome, 100, stdin);
+        printf("Digite o email do usuário: ");
+        fgets((*us)[*n].email, 100, stdin);
+        printf("Digite a idade do usuário: ");
+        scanf("%d", &(*us)[*n].idade);
 
-    return 0;
+        (*n)++;
+        printf("Usuário cadastrado.\n");
+
+        return 0;
+    }
+
+    printf("ID de usuário já existe.\n");
+    return 1;
 }
 
 int buscaUsuario(Usuario *us, int n, int idUsuarioBuscado)
@@ -80,8 +102,9 @@ int cadastroEmprestimo(Emprestimo **emp, int *n, int *n_aloc, Livro *lv, int n_l
 
     int indiceLivro = buscaLivro(lv, n_livro, codigoLivro);
     int indiceUsuario = buscaUsuario(us, n_usuario, idUsuario);
+    int indiceEmprestimo = buscaEmprestimo(*emp, *n, codigoLivro, idUsuario);
 
-    if (indiceLivro != -1 && indiceUsuario != -1)
+    if (indiceLivro != -1 && indiceUsuario != -1 && indiceEmprestimo == -1)
     {
         (*emp)[*n].codigoLivro = codigoLivro;
         (*emp)[*n].idUsuario = idUsuario;
@@ -96,6 +119,7 @@ int cadastroEmprestimo(Emprestimo **emp, int *n, int *n_aloc, Livro *lv, int n_l
         return 0;
     }
 
+    printf("Livro e/ou usuário não encontrado(s).");
     return 1;
 }
 
