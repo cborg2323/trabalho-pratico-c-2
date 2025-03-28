@@ -70,7 +70,7 @@ int main()
         printf("6. Listar Empréstimos\n");
         printf("7. Alterar Livro\n");
         printf("8. Alterar Usuário\n");
-        printf("8. Alterar Empréstimo\n");
+        printf("9. Alterar Empréstimo\n");
         printf("0. Salvar e Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
@@ -97,6 +97,12 @@ int main()
             break;
         case 7:
             alterarLivro(&lv, n_livro);
+            break;
+        case 8:
+            alterarUsuario(&us, n_usuario);
+            break;
+        case 9:
+            alterarEmprestimo(&emp, n_emprestimo, lv, n_livro, us, n_usuario);
             break;
         case 0:
             salvarLivros(lv, n_livro);
