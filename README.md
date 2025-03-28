@@ -52,19 +52,23 @@ gdb ./programa
 ## 📁 Estrutura do Projeto
 ```
 /
-├── src/                     # Código-fonte
-│   ├── main.c               # Programa principal
-│   ├── funcoes-livros.c     # Funções para gerenciamento de livros
-│   ├── funcoes-usuarios.c   # Funções para gerenciamento de usuários
-│   ├── funcoes-emprestimos.c # Funções para empréstimos
-│   ├── funcoes-arquivos.c   # Funções de manipulação de arquivos
-├── include/                 # Arquivos de cabeçalho
-│   ├── funcoes-livros.h     
-│   ├── funcoes-usuarios.h   
-│   ├── funcoes-emprestimos.h
-│   ├── funcoes-arquivos.h   
-├── Makefile                 # Automação da compilação
-├── README.md                # Documentação do projeto
+├── src/                              # Código-fonte
+│   ├── main.c                        # Programa principal
+│   ├── constantes.c                  # Constantes com nomes de arquivo e alocação inicial
+│   ├── funcoes-alocao.c              # Funções para gerenciamento de memória
+│   ├── funcoes-cadastro.c            # Funções CRUD
+│   ├── funcoes-inic-arquivo.c        # Funções para inicialização de arquivos
+│   ├── funcoes-listagem.c            # Funções para listagem e consulta
+│   ├── funcoes-salva-carrega-arq.c   # Funções de manipulação de arquivos
+├── include/                          # Arquivos de cabeçalho e estrutura
+│   ├── structs.h                     # Definição das estruturas
+│   ├── funcoes-alocao.h
+│   ├── funcoes-cadastro.h
+│   ├── funcoes-inic-arquivo.h
+│   ├── funcoes-listagem.h
+│   ├── funcoes-salva-carrega-arq.h
+├── Makefile                          # Automação da compilação
+├── README.md                         # Documentação do projeto
 ```
 
 ## 👨‍💻 Autor
