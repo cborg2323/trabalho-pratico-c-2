@@ -9,7 +9,7 @@ int cadastroLivro(Livro **lv, int *n, int *n_aloc)
     verificaAlocacaoLivros(lv, *n, n_aloc);
 
     printf("\n\nDigite o código do livro: ");
-    scanf("%d", codLivro);
+    scanf("%d", &codLivro);
     indiceLivro = buscaLivro(*lv, *n, codLivro);
 
     if (indiceLivro == -1)
